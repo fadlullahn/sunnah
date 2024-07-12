@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,8 @@ import retrofit2.Response;
 public class SunnahUbahActivity extends AppCompatActivity {
     private int xId;
     private String xName, xUsername, xLevel, xPassword, xFavorit;
-    private EditText etName, etUsername, etLevel, etPassword, etFavorit;
+    private EditText etLevel, etPassword, etFavorit;
+    private TextView tvName, tvUsername;
     private Button btnFavorit, btnUnFavorit;
     private String yName, yUsername, yLevel,yPassword, yFavorit;
 
@@ -37,16 +39,18 @@ public class SunnahUbahActivity extends AppCompatActivity {
         xPassword = terima.getStringExtra("xPassword");
         xFavorit = terima.getStringExtra("xFavorit");
 
-        etName = findViewById(R.id.et_name);
-        etUsername = findViewById(R.id.et_username);
+        tvName = findViewById(R.id.tv_name);
+        tvUsername = findViewById(R.id.tv_username);
+
         etLevel = findViewById(R.id.et_level);
         etPassword = findViewById(R.id.et_password);
         etFavorit = findViewById(R.id.et_favorit);
         btnFavorit = findViewById(R.id.btn_favorit);
         btnUnFavorit = findViewById(R.id.btn_unfavorit);
 
-        etName.setText(xName);
-        etUsername.setText(xUsername);
+        tvName.setText(xName);
+        tvUsername.setText(xUsername);
+
         etLevel.setText(xLevel);
         etLevel.setVisibility(View.GONE);
         etPassword.setText(xPassword);
@@ -70,8 +74,8 @@ public class SunnahUbahActivity extends AppCompatActivity {
         btnFavorit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                yName = etName.getText().toString();
-                yUsername = etUsername.getText().toString();
+                yName = tvName.getText().toString();
+                yUsername = tvUsername.getText().toString();
                 yLevel = etLevel.getText().toString();
                 yPassword = etPassword.getText().toString();
                 yFavorit = etFavorit.getText().toString();
@@ -83,8 +87,8 @@ public class SunnahUbahActivity extends AppCompatActivity {
         btnUnFavorit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                yName = etName.getText().toString();
-                yUsername = etUsername.getText().toString();
+                yName = tvName.getText().toString();
+                yUsername = tvUsername.getText().toString();
                 yLevel = etLevel.getText().toString();
                 yPassword = etPassword.getText().toString();
                 yFavorit = etFavorit.getText().toString();

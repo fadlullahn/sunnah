@@ -75,6 +75,7 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
             tvPassword = itemView.findViewById(R.id.tv_password);
             tvFavorit = itemView.findViewById(R.id.tv_favorit);
 
+            tvLevel.setVisibility(View.GONE);
             tvUsername.setVisibility(View.GONE);
             tvPassword.setVisibility(View.GONE);
             tvFavorit.setVisibility(View.GONE);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+        <Button
+        android:id="@+id/button_menurut_umum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menurut Umum"
+        android:layout_marginBottom="10dp" />
+
+        <Button
+        android:id="@+id/button_menurut_bahasa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menurut Bahasa"
+        android:layout_marginBottom="10dp" />
+
+        <Button
+        android:id="@+id/button_menurut_ulama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menurut Ulama"
+        android:layout_marginBottom="10dp" />
+
+        <TextView
+        android:id="@+id/textViewPengertian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:justificationMode="inter_word"
+        android:gravity="start"
+        android:paddingTop="20dp" />
+
+            </LinearLayout>

@@ -26,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnPengertian, btnSunnah, btnFavorite, btnReminder;
+    Button btnPengertian, btnSunnah, btnFavorite, btnReminder, btnAplikasi;
     private RecyclerView rvData;
     private AdapterDataSunnah adData;
     private LinearLayoutManager lmData;
@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
         btnSunnah = findViewById(R.id.btn_sunnah);
         btnFavorite = findViewById(R.id.btn_favorite);
         btnReminder = findViewById(R.id.btn_reminder);
+        btnAplikasi = findViewById(R.id.btn_aplikasi);
 
 
 
         btnPengertian.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ReminderActivity.class);
+            Intent intent = new Intent(MainActivity.this, PengertianActivity.class);
             startActivity(intent);
         });
 
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
         btnFavorite.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SunnahDataActivity.class);
             intent.putExtra("extraData", "1");
+            startActivity(intent);
+        });
+
+        btnAplikasi.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TentangAplikasiActivity.class);
             startActivity(intent);
         });
 

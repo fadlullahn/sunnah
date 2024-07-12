@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,8 @@ public class ReminderActivity extends AppCompatActivity {
 
     private int xId;
     private String xName, xUsername, xLevel, xPassword,xHour, xMinute;
-    private EditText etName, etUsername, etLevel, etPassword, etFavorit;
+    private EditText etLevel, etPassword, etFavorit;
+    private TextView etName, etUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +78,8 @@ public class ReminderActivity extends AppCompatActivity {
         xHour = terima.getStringExtra("xHour");
         xMinute = terima.getStringExtra("xMinute");
 
-        etName = findViewById(R.id.et_name);
-        etUsername = findViewById(R.id.et_username);
+        etName = findViewById(R.id.tv_name);
+        etUsername = findViewById(R.id.tv_username);
         etLevel = findViewById(R.id.et_level);
         etPassword = findViewById(R.id.et_password);
         etFavorit = findViewById(R.id.et_favorit);

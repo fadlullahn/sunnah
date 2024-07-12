@@ -71,7 +71,7 @@ public class AdapterDataKategori extends RecyclerView.Adapter<AdapterDataKategor
             tvId = itemView.findViewById(R.id.tv_id);
             tvNamaKategori = itemView.findViewById(R.id.tv_kategori);
             tvSubKategori = itemView.findViewById(R.id.tv_subkategori);
-
+            tvSubKategori.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
