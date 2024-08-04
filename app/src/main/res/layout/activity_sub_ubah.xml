@@ -10,8 +10,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ini Adalah Halaman Daftar Sub di SubUbahActivity"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
