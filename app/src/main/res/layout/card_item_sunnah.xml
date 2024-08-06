@@ -32,7 +32,7 @@
             android:text="Username"
             android:textStyle="bold"
             android:textSize="22sp"
-            android:maxLines="2" />
+            />
 
         <TextView
             android:id="@+id/tv_password"
