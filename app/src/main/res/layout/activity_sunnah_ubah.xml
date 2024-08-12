@@ -37,7 +37,9 @@
             android:layout_height="wrap_content"
             android:hint="Name"
             android:textSize="20sp"
-            />
+            android:justificationMode="inter_word"
+            android:gravity="start" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -89,7 +91,7 @@
             android:id="@+id/btn_favorit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Favorit"
+            android:text="Favorite"
             android:layout_marginTop="30dp"
             />
 
@@ -97,7 +99,7 @@
             android:id="@+id/btn_unfavorit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Batalkan Favorit"
+            android:text="Batalkan Favorite"
             android:layout_marginTop="30dp"
             />
 

@@ -64,15 +64,14 @@
             android:text="Reminder" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="500dp">
+
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_data"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_data"
@@ -91,7 +90,7 @@
             android:visibility="invisible"
             />
 
-    </RelativeLayout>
+
 
 
 

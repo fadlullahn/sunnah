@@ -114,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 isSearchActive = true;
+                srlData.setVisibility(View.VISIBLE);
+                btnPengertian.setVisibility(View.GONE);
+                btnSunnah.setVisibility(View.GONE);
+                btnFavorite.setVisibility(View.GONE);
+                btnReminder.setVisibility(View.GONE);
+                btnAplikasi.setVisibility(View.GONE);
                 filterData(newText);
                 return false;
             }
@@ -121,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
 
         searchView.setOnCloseListener(() -> {
             isSearchActive = false;
+            srlData.setVisibility(View.GONE);
+            btnPengertian.setVisibility(View.VISIBLE);
+            btnSunnah.setVisibility(View.VISIBLE);
+            btnFavorite.setVisibility(View.VISIBLE);
+            btnReminder.setVisibility(View.VISIBLE);
+            btnAplikasi.setVisibility(View.VISIBLE);
             filteredData.clear();
             adData.notifyDataSetChanged();
             return false;
