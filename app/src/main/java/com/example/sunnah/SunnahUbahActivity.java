@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sunnah.Api.ApiClient;
 import com.example.sunnah.Api.ApiInterface;
 import com.example.sunnah.Model.Sunnah.ResponseModel;
@@ -20,16 +23,23 @@ import retrofit2.Response;
 
 public class SunnahUbahActivity extends AppCompatActivity {
     private int xId;
+    ImageView HGambar;
     private String xName, xUsername, xLevel, xPassword, xFavorit;
     private EditText etLevel, etPassword, etFavorit;
     private TextView tvName, tvUsername;
     private Button btnFavorit, btnUnFavorit;
     private String yName, yUsername, yLevel,yPassword, yFavorit;
+    private float textSize = 16f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sunnah_ubah);
+
+        Button zoomInButton = findViewById(R.id.button_zoom_in);
+        Button zoomOutButton = findViewById(R.id.button_zoom_out);
+
+        HGambar = (ImageView) findViewById(R.id.tv_gambar);
 
         Intent terima = getIntent();
         xId = terima.getIntExtra("xId", -1);
@@ -38,6 +48,11 @@ public class SunnahUbahActivity extends AppCompatActivity {
         xLevel = terima.getStringExtra("xLevel");
         xPassword = terima.getStringExtra("xPassword");
         xFavorit = terima.getStringExtra("xFavorit");
+
+        Glide.with(SunnahUbahActivity.this)
+                .load(Config.IMAGES_URL + terima.getStringExtra("xGambar"))
+                .apply(new RequestOptions().override(550, 550))
+                .into(HGambar);
 
         tvName = findViewById(R.id.tv_name);
         tvUsername = findViewById(R.id.tv_username);
@@ -94,6 +109,26 @@ public class SunnahUbahActivity extends AppCompatActivity {
                 yFavorit = etFavorit.getText().toString();
 
                 updateData();
+            }
+        });
+
+        zoomInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textSize += 2f; // Increase text size by 2sp
+                tvName.setTextSize(textSize);
+                tvUsername.setTextSize(textSize);
+            }
+        });
+
+        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textSize > 8f) { // Minimum text size
+                    textSize -= 2f; // Decrease text size by 2sp
+                    tvName.setTextSize(textSize);
+                    tvUsername.setTextSize(textSize);
+                }
             }
         });
     }

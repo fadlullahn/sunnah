@@ -55,8 +55,6 @@ public class AdapterDataKategori extends RecyclerView.Adapter<AdapterDataKategor
 
     }
 
-
-
     @Override
     public int getItemCount() {
         return listData.size();

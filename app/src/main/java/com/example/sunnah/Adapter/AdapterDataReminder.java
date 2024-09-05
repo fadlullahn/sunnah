@@ -54,6 +54,7 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
         holder.tvPassword.setText(dm.getSub());
         holder.tvLevel.setText(dm.getKategori());
         holder.tvFavorit.setText(dm.getFavorit());
+        holder.tvGambar.setText(dm.getGambar());
 
     }
 
@@ -63,7 +64,7 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
     }
 
     public class HolderData extends RecyclerView.ViewHolder {
-        TextView tvId, tvName, tvUsername, tvLevel, tvPassword, tvFavorit;
+        TextView tvId, tvName, tvUsername, tvLevel, tvPassword, tvFavorit, tvGambar;
 
         public HolderData(@NonNull View itemView) {
             super(itemView);
@@ -74,11 +75,13 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
             tvLevel = itemView.findViewById(R.id.tv_level);
             tvPassword = itemView.findViewById(R.id.tv_password);
             tvFavorit = itemView.findViewById(R.id.tv_favorit);
+            tvGambar = itemView.findViewById(R.id.gambar);
 
             tvLevel.setVisibility(View.GONE);
             tvUsername.setVisibility(View.GONE);
             tvPassword.setVisibility(View.GONE);
             tvFavorit.setVisibility(View.GONE);
+            tvGambar.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

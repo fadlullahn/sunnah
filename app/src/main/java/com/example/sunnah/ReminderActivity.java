@@ -30,11 +30,15 @@ public class ReminderActivity extends AppCompatActivity {
     private String xName, xUsername, xLevel, xPassword,xHour, xMinute;
     private EditText etLevel, etPassword, etFavorit;
     private TextView etName, etUsername;
+    private float textSize = 16f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        Button zoomInButton = findViewById(R.id.button_zoom_in);
+        Button zoomOutButton = findViewById(R.id.button_zoom_out);
 
         createNotificationChannel();
 
@@ -96,6 +100,26 @@ public class ReminderActivity extends AppCompatActivity {
         editTextMinute.setVisibility(View.GONE);
 
         etFavorit.setVisibility(View.GONE);
+
+        zoomInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textSize += 2f; // Increase text size by 2sp
+                etName.setTextSize(textSize);
+                etUsername.setTextSize(textSize);
+            }
+        });
+
+        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textSize > 8f) { // Minimum text size
+                    textSize -= 2f; // Decrease text size by 2sp
+                    etName.setTextSize(textSize);
+                    etUsername.setTextSize(textSize);
+                }
+            }
+        });
     }
 
 

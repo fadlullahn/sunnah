@@ -1,120 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ReminderActivity">
 
+    <!-- Bagian yang bisa di-scroll -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linear_layout_buttons">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hour"
+                android:inputType="number"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/editTextMinute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Minute"
+                android:inputType="number"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:textSize="20sp"
+                android:inputType="text"/>
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:textSize="20sp"
+                android:justificationMode="inter_word"
+                android:gravity="start"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Level"
+                    android:textSize="20sp"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textSize="20sp"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_favorit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:hint="Favorit"
+                    android:textSize="20sp"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonSetNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Notification"
+                android:onClick="setNotification"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- LinearLayout untuk tombol zoom yang selalu berada di bawah -->
     <LinearLayout
+        android:id="@+id/linear_layout_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:padding="16dp"
-        android:orientation="vertical">
-    <EditText
-        android:id="@+id/editTextHour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Hour"
-        android:inputType="number"
-        android:maxLength="2"
-        android:maxLines="1"
-        android:textSize="18sp"/>
+        android:layout_alignParentBottom="true">
 
-    <EditText
-        android:id="@+id/editTextMinute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Minute"
-        android:inputType="number"
-        android:maxLength="2"
-        android:maxLines="1"
-        android:textSize="18sp"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/button_zoom_in"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:textSize="20sp"
-            android:inputType="text"
-            />
+            android:text="Zoom In"
+            android:layout_marginEnd="16dp"/>
 
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:textSize="20sp"
-        android:justificationMode="inter_word"
-        android:gravity="start" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/et_level"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/button_zoom_out"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Level"
-            android:textSize="20sp"
-            android:inputType="text"
-            />
+            android:text="Zoom Out"/>
+    </LinearLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textSize="20sp"
-            android:inputType="text"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/et_favorit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:hint="favorit"
-            android:textSize="20sp"
-            android:inputType="text"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/buttonSetNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Notification"
-        android:onClick="setNotification" />
-
-
-</LinearLayout>
-</ScrollView>
+</RelativeLayout>
