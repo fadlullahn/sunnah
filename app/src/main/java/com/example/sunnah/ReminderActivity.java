@@ -2,6 +2,7 @@ package com.example.sunnah;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -35,11 +36,12 @@ public class ReminderActivity extends AppCompatActivity {
     ImageView HGambar;
 
     private int xId;
-    private String xName, xUsername, xLevel, xPassword,xHour, xMinute, xAudio;
+    private String xName, xUsername, xLevel, xPassword,xHour, xMinute, xAudio, xGambar;
     private EditText etLevel, etPassword, etFavorit;
     private TextView etName, etUsername;
     private float textSize = 16f;
     private MediaPlayer mediaPlayer;
+    Intent terima;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class ReminderActivity extends AppCompatActivity {
             }
         });
 
-        Intent terima = getIntent();
+        terima = getIntent();
         xId = terima.getIntExtra("xId", -1);
         xName = terima.getStringExtra("xName");
         xUsername = terima.getStringExtra("xUsername");
@@ -93,6 +95,7 @@ public class ReminderActivity extends AppCompatActivity {
         xHour = terima.getStringExtra("xHour");
         xMinute = terima.getStringExtra("xMinute");
         xAudio = terima.getStringExtra("xAudio");
+        xGambar = terima.getStringExtra("xGambar");
 
         Glide.with(ReminderActivity.this)
                 .load(Config.IMAGES_URL + terima.getStringExtra("xGambar"))
@@ -178,14 +181,14 @@ public class ReminderActivity extends AppCompatActivity {
 
 
     }
-@Override
-protected void onDestroy() {
-    if (mediaPlayer != null) {
-        mediaPlayer.release();
-        mediaPlayer = null;
+    @Override
+    protected void onDestroy() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        super.onDestroy();
     }
-    super.onDestroy();
-}
 
 
     private void saveNotificationTime(int hour, int minute) {
@@ -242,16 +245,50 @@ protected void onDestroy() {
         return selectedMillis - currentMillis;
     }
 
+//    private void displayNotification() {
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_add)
+//                .setContentTitle("Reminder: " + xName )
+//                .setContentText(xUsername)
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.notify(NOTIFICATION_ID, builder.build());
+//    }
+
     private void displayNotification() {
+        // Membuat Intent yang akan membuka ReminderActivity
+        Intent intent = new Intent(this, ReminderActivity.class);
+
+        // Tambahkan data yang ingin diteruskan ke ReminderActivity
+        intent.putExtra("xId", xId);
+        intent.putExtra("xName", xName);
+        intent.putExtra("xUsername", xUsername);
+        intent.putExtra("xLevel", xLevel);
+        intent.putExtra("xPassword", xPassword);
+        intent.putExtra("xHour", xHour);
+        intent.putExtra("xMinute", xMinute);
+        intent.putExtra("xAudio", xAudio);
+        intent.putExtra("xGambar", xGambar);
+
+        // Membuat PendingIntent
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        // Membuat notifikasi dengan pending intent
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_add)
-                .setContentTitle("Reminder: " + xName )
+                .setContentTitle("Reminder: " + xName)
                 .setContentText(xUsername)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)  // Set pending intent
+                .setAutoCancel(true);  // Notifikasi akan hilang setelah diklik
 
+        // Menampilkan notifikasi
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
+
 
 
     private void createNotificationChannel() {
