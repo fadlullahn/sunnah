@@ -55,6 +55,8 @@ public class AdapterDataSunnah extends RecyclerView.Adapter<AdapterDataSunnah.Ho
         holder.tvLevel.setText(dm.getKategori());
         holder.tvFavorit.setText(dm.getFavorit());
         holder.Gambar.setText(dm.getGambar());
+        holder.Audio.setText(dm.getAudio());
+
 
     }
 
@@ -64,7 +66,7 @@ public class AdapterDataSunnah extends RecyclerView.Adapter<AdapterDataSunnah.Ho
     }
 
     public class HolderData extends RecyclerView.ViewHolder {
-        TextView tvId, tvName, tvUsername, tvLevel, tvPassword, tvFavorit, Gambar;
+        TextView tvId, tvName, tvUsername, tvLevel, tvPassword, tvFavorit, Gambar, Audio;
 
         public HolderData(@NonNull View itemView) {
             super(itemView);
@@ -76,12 +78,14 @@ public class AdapterDataSunnah extends RecyclerView.Adapter<AdapterDataSunnah.Ho
             tvPassword = itemView.findViewById(R.id.tv_password);
             tvFavorit = itemView.findViewById(R.id.tv_favorit);
             Gambar = itemView.findViewById(R.id.gambar);
+            Audio = itemView.findViewById(R.id.audio);
 
             tvLevel.setVisibility(View.GONE);
             tvUsername.setVisibility(View.GONE);
             tvPassword.setVisibility(View.GONE);
             tvFavorit.setVisibility(View.GONE);
             Gambar.setVisibility(View.GONE);
+            Audio.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,6 +114,7 @@ public class AdapterDataSunnah extends RecyclerView.Adapter<AdapterDataSunnah.Ho
                     String varPassword = listUser.get(0).getSub();
                     String varFavorit = listUser.get(0).getFavorit();
                     String varGambar = listUser.get(0).getGambar();
+                    String varAudio = listUser.get(0).getAudio();
 
                     Intent kirim = new Intent(ctx, SunnahUbahActivity.class);
                     kirim.putExtra("xId", varIdUser);
@@ -119,6 +124,7 @@ public class AdapterDataSunnah extends RecyclerView.Adapter<AdapterDataSunnah.Ho
                     kirim.putExtra("xPassword", varPassword);
                     kirim.putExtra("xFavorit", varFavorit);
                     kirim.putExtra("xGambar", varGambar);
+                    kirim.putExtra("xAudio", varAudio);
                     ctx.startActivity(kirim);
                 }
 

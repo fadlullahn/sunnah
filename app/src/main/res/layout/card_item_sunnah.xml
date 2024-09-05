@@ -65,7 +65,17 @@
             android:layout_marginBottom="4dp"
             android:scaleType="centerCrop"
             android:textSize="20dp"
-            android:text="ulla"
+            android:text="gambar"
+            />
+
+        <TextView
+            android:id="@+id/audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:scaleType="centerCrop"
+            android:textSize="20dp"
+            android:text="audio"
             />
 
     </LinearLayout>

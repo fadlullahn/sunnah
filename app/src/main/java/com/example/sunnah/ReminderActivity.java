@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
+import java.io.IOException;
 import java.util.Calendar;
 
 public class ReminderActivity extends AppCompatActivity {
@@ -26,16 +32,21 @@ public class ReminderActivity extends AppCompatActivity {
     private final String CHANNEL_ID = "ReminderChannel";
     private final int NOTIFICATION_ID = 001;
 
+    ImageView HGambar;
+
     private int xId;
-    private String xName, xUsername, xLevel, xPassword,xHour, xMinute;
+    private String xName, xUsername, xLevel, xPassword,xHour, xMinute, xAudio;
     private EditText etLevel, etPassword, etFavorit;
     private TextView etName, etUsername;
     private float textSize = 16f;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        HGambar = findViewById(R.id.tv_gambar);
 
         Button zoomInButton = findViewById(R.id.button_zoom_in);
         Button zoomOutButton = findViewById(R.id.button_zoom_out);
@@ -81,6 +92,12 @@ public class ReminderActivity extends AppCompatActivity {
         xPassword = terima.getStringExtra("xPassword");
         xHour = terima.getStringExtra("xHour");
         xMinute = terima.getStringExtra("xMinute");
+        xAudio = terima.getStringExtra("xAudio");
+
+        Glide.with(ReminderActivity.this)
+                .load(Config.IMAGES_URL + terima.getStringExtra("xGambar"))
+                .apply(new RequestOptions().override(550, 550))
+                .into(HGambar);
 
         etName = findViewById(R.id.tv_name);
         etUsername = findViewById(R.id.tv_username);
@@ -89,6 +106,7 @@ public class ReminderActivity extends AppCompatActivity {
         etFavorit = findViewById(R.id.et_favorit);
         editTextHour.setText(xHour);
         editTextMinute.setText(xMinute);
+
 
         etName.setText(xName);
         etUsername.setText(xUsername);
@@ -120,7 +138,54 @@ public class ReminderActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        Button playButton = findViewById(R.id.play_button);
+        Button stopButton = findViewById(R.id.stop_button);
+
+// Dapatkan nilai xAudio dari Intent
+        String xAudio = terima.getStringExtra("xAudio");
+
+// Cek apakah xAudio memiliki nilai atau tidak
+        if (xAudio == null || xAudio.isEmpty()) {
+            // Sembunyikan tombol jika tidak ada nilai xAudio
+            playButton.setVisibility(View.GONE);
+            stopButton.setVisibility(View.GONE);
+        } else {
+            // Jika xAudio ada, tampilkan tombol dan jalankan fungsinya
+            mediaPlayer = new MediaPlayer();
+            String audioUrl = Config.AUDIO_URL + xAudio;
+
+            playButton.setOnClickListener(v -> {
+                try {
+                    mediaPlayer.setDataSource(audioUrl);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            stopButton.setOnClickListener(v -> {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+            });
+        }
+
+
+
+
     }
+@Override
+protected void onDestroy() {
+    if (mediaPlayer != null) {
+        mediaPlayer.release();
+        mediaPlayer = null;
+    }
+    super.onDestroy();
+}
 
 
     private void saveNotificationTime(int hour, int minute) {

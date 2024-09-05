@@ -1,6 +1,7 @@
 package com.example.sunnah;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,16 +18,19 @@ import com.example.sunnah.Api.ApiClient;
 import com.example.sunnah.Api.ApiInterface;
 import com.example.sunnah.Model.Sunnah.ResponseModel;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SunnahUbahActivity extends AppCompatActivity {
     private int xId;
+    private MediaPlayer mediaPlayer;
     ImageView HGambar;
-    private String xName, xUsername, xLevel, xPassword, xFavorit;
+    private String xName, xUsername, xLevel, xPassword, xFavorit, xAudio;
     private EditText etLevel, etPassword, etFavorit;
-    private TextView tvName, tvUsername;
+    private TextView tvName, tvUsername, tvAudio;
     private Button btnFavorit, btnUnFavorit;
     private String yName, yUsername, yLevel,yPassword, yFavorit;
     private float textSize = 16f;
@@ -54,8 +58,12 @@ public class SunnahUbahActivity extends AppCompatActivity {
                 .apply(new RequestOptions().override(550, 550))
                 .into(HGambar);
 
+        xAudio = terima.getStringExtra("xAudio");
+
         tvName = findViewById(R.id.tv_name);
         tvUsername = findViewById(R.id.tv_username);
+        tvAudio = findViewById(R.id.audio_label);
+
 
         etLevel = findViewById(R.id.et_level);
         etPassword = findViewById(R.id.et_password);
@@ -65,11 +73,13 @@ public class SunnahUbahActivity extends AppCompatActivity {
 
         tvName.setText(xName);
         tvUsername.setText(xUsername);
+        tvAudio.setText(xAudio);
 
         etLevel.setText(xLevel);
         etLevel.setVisibility(View.GONE);
         etPassword.setText(xPassword);
         etPassword.setVisibility(View.GONE);
+        tvAudio.setVisibility(View.GONE);
 
         if (xFavorit.equals("1")) {
             etFavorit.setText("0");
@@ -131,6 +141,50 @@ public class SunnahUbahActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button playButton = findViewById(R.id.play_button);
+        Button stopButton = findViewById(R.id.stop_button);
+
+// Dapatkan nilai xAudio dari Intent
+        String xAudio = terima.getStringExtra("xAudio");
+
+// Cek apakah xAudio memiliki nilai atau tidak
+        if (xAudio == null || xAudio.isEmpty()) {
+            // Sembunyikan tombol jika tidak ada nilai xAudio
+            playButton.setVisibility(View.GONE);
+            stopButton.setVisibility(View.GONE);
+        } else {
+            // Jika xAudio ada, tampilkan tombol dan jalankan fungsinya
+            mediaPlayer = new MediaPlayer();
+            String audioUrl = Config.AUDIO_URL + xAudio;
+
+            playButton.setOnClickListener(v -> {
+                try {
+                    mediaPlayer.setDataSource(audioUrl);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            stopButton.setOnClickListener(v -> {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+            });
+        }
+
+
+    }
+    @Override
+    protected void onDestroy() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        super.onDestroy();
     }
 
     private void updateData(){

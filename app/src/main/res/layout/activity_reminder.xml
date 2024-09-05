@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ReminderActivity">
 
     <!-- Bagian yang bisa di-scroll -->
@@ -46,11 +47,58 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Name"
+                android:textStyle="bold"
                 android:textSize="20sp"
                 android:inputType="text"/>
+
+            <ImageView
+                android:id="@+id/tv_gambar"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:src="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- TextView untuk label atau informasi -->
+                <TextView
+                    android:id="@+id/audio_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                   />
+
+                <!-- Tombol Play untuk memutar audio -->
+                <Button
+                    android:id="@+id/play_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Putar"
+                    android:layout_marginBottom="4dp" />
+
+                <!-- Tombol Stop untuk menghentikan audio -->
+                <Button
+                    android:id="@+id/stop_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hentikan" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_username"
@@ -60,6 +108,8 @@
                 android:textSize="20sp"
                 android:justificationMode="inter_word"
                 android:gravity="start"/>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -105,6 +155,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/buttonSetNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

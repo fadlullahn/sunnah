@@ -55,6 +55,7 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
         holder.tvLevel.setText(dm.getKategori());
         holder.tvFavorit.setText(dm.getFavorit());
         holder.tvGambar.setText(dm.getGambar());
+        holder.tvAudio.setText(dm.getAudio());
 
     }
 
@@ -64,7 +65,7 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
     }
 
     public class HolderData extends RecyclerView.ViewHolder {
-        TextView tvId, tvName, tvUsername, tvLevel, tvPassword, tvFavorit, tvGambar;
+        TextView tvId, tvName, tvUsername, tvLevel, tvPassword, tvFavorit, tvGambar, tvAudio;
 
         public HolderData(@NonNull View itemView) {
             super(itemView);
@@ -76,12 +77,15 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
             tvPassword = itemView.findViewById(R.id.tv_password);
             tvFavorit = itemView.findViewById(R.id.tv_favorit);
             tvGambar = itemView.findViewById(R.id.gambar);
+            tvAudio = itemView.findViewById(R.id.audio);
+
 
             tvLevel.setVisibility(View.GONE);
             tvUsername.setVisibility(View.GONE);
             tvPassword.setVisibility(View.GONE);
             tvFavorit.setVisibility(View.GONE);
             tvGambar.setVisibility(View.GONE);
+            tvAudio.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,6 +115,8 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
                     String varFavorit = listUser.get(0).getFavorit();
                     String varHour = listUser.get(0).getHour();
                     String varMinute = listUser.get(0).getMinute();
+                    String varGambar = listUser.get(0).getGambar();
+                    String varAudio = listUser.get(0).getAudio();
 
                     Intent kirim = new Intent(ctx, ReminderActivity.class);
                     kirim.putExtra("xId", varIdUser);
@@ -121,6 +127,8 @@ public class AdapterDataReminder extends RecyclerView.Adapter<AdapterDataReminde
                     kirim.putExtra("xFavorit", varFavorit);
                     kirim.putExtra("xHour", varHour);
                     kirim.putExtra("xMinute", varMinute);
+                    kirim.putExtra("xGambar", varGambar);
+                    kirim.putExtra("xAudio", varAudio);
                     ctx.startActivity(kirim);
                 }
 

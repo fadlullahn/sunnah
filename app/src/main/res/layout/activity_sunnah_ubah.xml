@@ -38,9 +38,11 @@
                 />
             <ImageView
                 android:id="@+id/tv_gambar"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -48,6 +50,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:src="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- TextView untuk label atau informasi -->
+                <TextView
+                    android:id="@+id/audio_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Putar Rekaman"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="20dp" />
+
+                <!-- Tombol Play untuk memutar audio -->
+                <Button
+                    android:id="@+id/play_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Putar"
+                    android:layout_marginBottom="4dp" />
+
+                <!-- Tombol Stop untuk menghentikan audio -->
+                <Button
+                    android:id="@+id/stop_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hentikan" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_username"
@@ -57,6 +91,8 @@
                 android:textSize="20sp"
                 android:justificationMode="inter_word"
                 android:gravity="start" />
+
+
 
 
             <com.google.android.material.textfield.TextInputLayout

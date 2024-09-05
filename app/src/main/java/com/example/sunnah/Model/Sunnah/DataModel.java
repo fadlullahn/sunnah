@@ -2,7 +2,7 @@ package com.example.sunnah.Model.Sunnah;
 
 public class DataModel {
     private int id;
-    private String judul, desk, kategori, sub, favorit, hour, minute, gambar;
+    private String judul, desk, kategori, sub, favorit, hour, minute, gambar, audio;
 
     public int getId() {
         return id;
@@ -64,5 +64,13 @@ public class DataModel {
 
     public void setGambar(String gambar) {
         this.gambar = gambar;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
     }
 }
