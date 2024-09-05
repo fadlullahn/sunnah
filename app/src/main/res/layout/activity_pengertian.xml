@@ -1,39 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:gravity="center"
+android:padding="16dp">
+
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp">
+    android:layout_height="0dp"
+    android:layout_weight="1">
 
-        <Button
-        android:id="@+id/button_menurut_umum"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Menurut Umum"
-        android:layout_marginBottom="10dp" />
-
-        <Button
-        android:id="@+id/button_menurut_bahasa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Menurut Bahasa"
-        android:layout_marginBottom="10dp" />
-
-        <Button
-        android:id="@+id/button_menurut_ulama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Menurut Ulama"
-        android:layout_marginBottom="10dp" />
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
-        android:id="@+id/textViewPengertian"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:justificationMode="inter_word"
-        android:gravity="start"
-        android:paddingTop="20dp" />
+            android:id="@+id/button_menurut_umum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Menurut umum, Sunnah adalah segala sesuatu yang bersumber dari Nabi Muhammad SAW, baik itu dalam bentuk perkataan, perbuatan, ataupun persetujuan (taqrir). Ini mencakup segala aspek kehidupan Nabi yang dijadikan contoh oleh umat Islam, selain dari perintah yang wajib dilakukan (fardhu) atau larangan yang harus dijauhi (haram). Sunnah mencakup praktik-praktik ibadah, etika, dan kehidupan sehari-hari yang dianjurkan untuk diikuti oleh umat Islam guna mencapai kehidupan yang lebih baik dan mendapatkan keridhaan Allah SWT."
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp"
+            android:padding="8dp"
+            android:layout_marginBottom="20dp" />
 
-            </LinearLayout>
+        <TextView
+            android:id="@+id/button_menurut_bahasa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Menurut bahasa, Sunnah berarti 'jalan' atau 'cara'. Ini merujuk pada kebiasaan atau praktik yang dijalani. Sunnah dalam konteks ini menunjukkan jalan atau cara hidup yang diikuti dan dicontohkan oleh Nabi Muhammad SAW. Secara linguistik, istilah ini bisa merujuk pada praktik-praktik yang baik atau buruk, tetapi dalam konteks agama Islam, Sunnah selalu merujuk pada contoh yang baik dan positif dari Nabi."
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp"
+            android:padding="8dp"
+            android:layout_marginBottom="20dp"
+            android:scrollbars="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <TextView
+            android:id="@+id/button_menurut_ulama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Menurut ulama, Sunnah adalah segala sesuatu yang bersumber dari Nabi Muhammad SAW, baik itu ucapan, perbuatan, ketetapan, atau sifat yang menjadi teladan bagi umat Islam. Dalam ilmu hadits, Sunnah mencakup apa saja yang diriwayatkan dari Nabi, baik berupa kata-kata, perbuatan, atau persetujuan beliau terhadap tindakan orang lain. Ulama membagi Sunnah ke dalam beberapa kategori, seperti Sunnah Qauliyah (ucapan Nabi), Sunnah Fi'liyah (perbuatan Nabi), dan Sunnah Taqririyah (persetujuan Nabi terhadap perbuatan sahabat). Sunnah digunakan sebagai sumber hukum kedua setelah Al-Quran dalam menetapkan hukum syariah dan tata cara beribadah."
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp"
+            android:padding="8dp"
+            android:layout_marginBottom="20dp"
+            android:scrollbars="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+    </LinearLayout>
+
+</ScrollView>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/button_zoom_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zoom In"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:id="@+id/button_zoom_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zoom Out" />
+</LinearLayout>
+
+</LinearLayout>
+
