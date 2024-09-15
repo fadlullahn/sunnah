@@ -52,45 +52,23 @@
                 tools:src="@color/colorAccent" />
 
             <LinearLayout
+                android:id="@+id/play_buttons_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:orientation="vertical">
 
-                <!-- TextView untuk label atau informasi -->
                 <TextView
-                    android:id="@+id/audio_label"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_username"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Putar Rekaman"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="20dp" />
-
-                <!-- Tombol Play untuk memutar audio -->
-                <Button
-                    android:id="@+id/play_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Putar"
-                    android:layout_marginBottom="4dp" />
-
-                <!-- Tombol Stop untuk menghentikan audio -->
-                <Button
-                    android:id="@+id/stop_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hentikan" />
+                    android:hint="Name"
+                    android:textSize="20sp"
+                    android:justificationMode="inter_word"
+                    android:gravity="start"/>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Name"
-                android:textSize="20sp"
-                android:justificationMode="inter_word"
-                android:gravity="start" />
+
 
 
 

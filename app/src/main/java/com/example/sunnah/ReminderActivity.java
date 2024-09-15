@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,11 +41,14 @@ public class ReminderActivity extends AppCompatActivity {
     private String xName, xUsername, xLevel, xPassword,xHour, xMinute, xAudio, xGambar;
     private EditText etLevel, etPassword, etFavorit;
     private TextView etName, etUsername;
-    private float textSize = 16f;
+    private float textSize = 20f;
     private MediaPlayer mediaPlayer;
     Intent terima;
 
     private LinearLayout playButtonsContainer; // Container untuk tombol play
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +135,7 @@ public class ReminderActivity extends AppCompatActivity {
                 textSize += 2f; // Increase text size by 2sp
                 etName.setTextSize(textSize);
                 etUsername.setTextSize(textSize);
+                updateTextViews(); // Update all TextViews in playButtonsContainer
             }
         });
 
@@ -141,49 +146,145 @@ public class ReminderActivity extends AppCompatActivity {
                     textSize -= 2f; // Decrease text size by 2sp
                     etName.setTextSize(textSize);
                     etUsername.setTextSize(textSize);
+                    updateTextViews(); // Update all TextViews in playButtonsContainer
                 }
             }
         });
 
 
-        playButtonsContainer = findViewById(R.id.play_buttons_container); // Menggunakan ID yang ada
+
+        // Inisialisasi MediaPlayer dan container untuk tombol
+        playButtonsContainer = findViewById(R.id.play_buttons_container);
         mediaPlayer = new MediaPlayer();
 
-        // Dapatkan nilai xAudio dari Intent
+        // Dapatkan nilai xAudio dan xUsername dari Intent
         Intent intent = getIntent();
         String xAudio = intent.getStringExtra("xAudio");
+        String xUsername = intent.getStringExtra("xUsername");
 
-        if (xAudio != null && !xAudio.isEmpty()) {
+        // Pastikan nilai xAudio dan xUsername tidak null
+        if (xAudio != null && !xAudio.isEmpty() && xUsername != null && !xUsername.isEmpty()) {
             // Menghapus tanda kurung siku dan kutipan, lalu memisahkan file menjadi array
             xAudio = xAudio.replaceAll("[\\[\\]\"]", "");
             String[] audioFiles = xAudio.split(",");
 
-            createPlayButtons(audioFiles);
+            // Log data untuk debugging
+            Log.d("xUsername", "xUsername: " + xUsername);
+            Log.d("xAudio", "xAudio: " + xAudio);
+
+            // Gantikan nilai "12345" dengan tombol play
+            replaceValuesWithButtons(xUsername, audioFiles);
         }
 
 
     }
-
-    private void createPlayButtons(String[] audioFiles) {
-        for (int i = 0; i < audioFiles.length; i++) {
-            String audioFile = audioFiles[i].trim();
-            if (!audioFile.isEmpty()) {
-                // Buat tombol baru
-                Button playButton = new Button(this);
-                playButton.setId(View.generateViewId()); // Menghasilkan ID unik untuk tombol
-                playButton.setText("Play");
-                playButton.setOnClickListener(v -> playAudio(audioFile));
-
-                // Tambahkan tombol ke container
-                playButtonsContainer.addView(playButton);
+    private void updateTextViews() {
+        // Loop melalui semua tampilan dalam playButtonsContainer
+        for (int i = 0; i < playButtonsContainer.getChildCount(); i++) {
+            View view = playButtonsContainer.getChildAt(i);
+            if (view instanceof TextView) {
+                ((TextView) view).setTextSize(textSize);
             }
         }
     }
 
 
 
+    private void replaceValuesWithButtons(String xUsername, String[] audioFiles) {
+        // Pisahkan teks berdasarkan tanda kurung untuk bagian "((()))"
+        String[] parts = xUsername.split("\\(\\(\\)\\)");
+        int audioIndex = 0;
+        boolean has12345 = false;
+
+        // Proses setiap bagian teks
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i];
+
+            // Pisahkan teks bagian ini berdasarkan spasi
+            String[] words = part.split("\\s+");
+            StringBuilder sentenceBuilder = new StringBuilder();
+
+            for (String word : words) {
+                if (word.equals("12345") && audioIndex < audioFiles.length) {
+                    // Tambahkan kalimat yang sudah dibangun sebelum tombol play
+                    if (sentenceBuilder.length() > 0) {
+                        TextView textView = new TextView(this);
+                        textView.setText(sentenceBuilder.toString().trim());
+                        textView.setTextSize(textSize); // Terapkan ukuran teks
+                        playButtonsContainer.addView(textView);
+                        sentenceBuilder.setLength(0); // Reset untuk kalimat berikutnya
+                    }
+
+                    // Tambahkan tombol play di tempat nilai "12345"
+                    String audioFile = audioFiles[audioIndex].trim();
+                    createPlayButton(audioFile);
+                    has12345 = true;
+                    audioIndex++; // Pindah ke audio berikutnya
+                } else {
+                    // Tambahkan kata ke dalam StringBuilder
+                    sentenceBuilder.append(word).append(" ");
+                }
+            }
+
+            // Tambahkan kalimat terakhir jika ada setelah loop selesai
+            if (sentenceBuilder.length() > 0) {
+                TextView textView = new TextView(this);
+                textView.setText(sentenceBuilder.toString().trim());
+                textView.setTextSize(textSize); // Terapkan ukuran teks
+                playButtonsContainer.addView(textView);
+            }
+
+            // Tambahkan baris baru untuk bagian teks setelah tanda kurung
+            if (i < parts.length - 1) {
+                TextView newlineTextView = new TextView(this);
+                newlineTextView.setText(" "); // Kosongkan teks, hanya untuk baris baru
+                newlineTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                ));
+                newlineTextView.setPadding(0, 16, 0, 16); // Memberi jarak vertikal
+                playButtonsContainer.addView(newlineTextView);
+            }
+        }
+
+        // Jika tidak ada nilai "12345" ditemukan, maka tampilkan nilai asli di TextView
+        if (!has12345) {
+            etUsername.setVisibility(View.VISIBLE);  // Tampilkan TextView asli
+        } else {
+            etUsername.setVisibility(View.GONE); // Sembunyikan TextView asli
+        }
+        updateTextViews();
+    }
+
+
+
+    private void createPlayButton(String audioFile) {
+        if (!audioFile.isEmpty()) {
+            // Buat tombol baru
+            Button playButton = new Button(this);
+            playButton.setId(View.generateViewId()); // Menghasilkan ID unik untuk tombol
+            playButton.setText("|>");
+
+            // Atur lebar Button agar match_parent
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, // lebar penuh
+                    LinearLayout.LayoutParams.WRAP_CONTENT  // tinggi otomatis sesuai konten
+            );
+            playButton.setLayoutParams(params);
+
+            playButton.setOnClickListener(v -> playAudio(audioFile));
+
+            // Tambahkan tombol ke container
+            playButtonsContainer.addView(playButton);
+
+            // Log tombol yang dibuat
+            Log.d("PlayButton", "Menambahkan tombol untuk file audio: " + audioFile);
+        }
+    }
+
+
     private void playAudio(String audioFile) {
-        // Stop audio yang sedang diputar
+        // Hentikan audio yang sedang diputar jika ada
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.reset();
@@ -203,6 +304,7 @@ public class ReminderActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // Pastikan MediaPlayer dirilis ketika Activity dihancurkan
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
