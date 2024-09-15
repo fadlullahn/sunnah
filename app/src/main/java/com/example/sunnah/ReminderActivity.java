@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class ReminderActivity extends AppCompatActivity {
     private float textSize = 16f;
     private MediaPlayer mediaPlayer;
     Intent terima;
+
+    private LinearLayout playButtonsContainer; // Container untuk tombol play
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,44 +146,61 @@ public class ReminderActivity extends AppCompatActivity {
         });
 
 
-        Button playButton = findViewById(R.id.play_button);
-        Button stopButton = findViewById(R.id.stop_button);
+        playButtonsContainer = findViewById(R.id.play_buttons_container); // Menggunakan ID yang ada
+        mediaPlayer = new MediaPlayer();
 
-// Dapatkan nilai xAudio dari Intent
-        String xAudio = terima.getStringExtra("xAudio");
+        // Dapatkan nilai xAudio dari Intent
+        Intent intent = getIntent();
+        String xAudio = intent.getStringExtra("xAudio");
 
-// Cek apakah xAudio memiliki nilai atau tidak
-        if (xAudio == null || xAudio.isEmpty()) {
-            // Sembunyikan tombol jika tidak ada nilai xAudio
-            playButton.setVisibility(View.GONE);
-            stopButton.setVisibility(View.GONE);
-        } else {
-            // Jika xAudio ada, tampilkan tombol dan jalankan fungsinya
-            mediaPlayer = new MediaPlayer();
-            String audioUrl = Config.AUDIO_URL + xAudio;
+        if (xAudio != null && !xAudio.isEmpty()) {
+            // Menghapus tanda kurung siku dan kutipan, lalu memisahkan file menjadi array
+            xAudio = xAudio.replaceAll("[\\[\\]\"]", "");
+            String[] audioFiles = xAudio.split(",");
 
-            playButton.setOnClickListener(v -> {
-                try {
-                    mediaPlayer.setDataSource(audioUrl);
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            stopButton.setOnClickListener(v -> {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                }
-            });
+            createPlayButtons(audioFiles);
         }
 
 
-
-
     }
+
+    private void createPlayButtons(String[] audioFiles) {
+        for (int i = 0; i < audioFiles.length; i++) {
+            String audioFile = audioFiles[i].trim();
+            if (!audioFile.isEmpty()) {
+                // Buat tombol baru
+                Button playButton = new Button(this);
+                playButton.setId(View.generateViewId()); // Menghasilkan ID unik untuk tombol
+                playButton.setText("Play");
+                playButton.setOnClickListener(v -> playAudio(audioFile));
+
+                // Tambahkan tombol ke container
+                playButtonsContainer.addView(playButton);
+            }
+        }
+    }
+
+
+
+    private void playAudio(String audioFile) {
+        // Stop audio yang sedang diputar
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+
+        // Siapkan MediaPlayer untuk file audio baru
+        String audioUrl = Config.AUDIO_URL + audioFile;
+        try {
+            mediaPlayer.setDataSource(audioUrl);
+            mediaPlayer.prepareAsync(); // Persiapkan secara asinkron
+            mediaPlayer.setOnPreparedListener(mp -> mp.start()); // Mulai pemutaran saat siap
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error playing audio: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         if (mediaPlayer != null) {
@@ -189,6 +209,7 @@ public class ReminderActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
 
 
     private void saveNotificationTime(int hour, int minute) {
@@ -303,4 +324,6 @@ public class ReminderActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
+
+
 }

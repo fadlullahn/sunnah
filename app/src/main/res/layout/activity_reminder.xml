@@ -70,35 +70,13 @@
                 tools:src="@color/colorAccent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/play_buttons_container"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
 
-                <!-- TextView untuk label atau informasi -->
-                <TextView
-                    android:id="@+id/audio_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                   />
+                />
 
-                <!-- Tombol Play untuk memutar audio -->
-                <Button
-                    android:id="@+id/play_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Putar"
-                    android:layout_marginBottom="4dp" />
-
-                <!-- Tombol Stop untuk menghentikan audio -->
-                <Button
-                    android:id="@+id/stop_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hentikan" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_username"
