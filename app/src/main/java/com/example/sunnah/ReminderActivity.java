@@ -287,7 +287,9 @@ public class ReminderActivity extends AppCompatActivity {
         // Hentikan audio yang sedang diputar jika ada
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
-            mediaPlayer.reset();
+            mediaPlayer.reset();  // Reset setelah stop
+        } else {
+            mediaPlayer.reset();  // Reset jika tidak sedang diputar, untuk memastikan kondisi siap
         }
 
         // Siapkan MediaPlayer untuk file audio baru
@@ -301,6 +303,7 @@ public class ReminderActivity extends AppCompatActivity {
             Toast.makeText(this, "Error playing audio: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     protected void onDestroy() {
