@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.text.LineBreaker;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -210,6 +211,7 @@ public class ReminderActivity extends AppCompatActivity {
                     if (sentenceBuilder.length() > 0) {
                         TextView textView = new TextView(this);
                         textView.setText(sentenceBuilder.toString().trim());
+                        textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
                         textView.setTextSize(textSize); // Terapkan ukuran teks
                         playButtonsContainer.addView(textView);
                         sentenceBuilder.setLength(0); // Reset untuk kalimat berikutnya
@@ -230,6 +232,7 @@ public class ReminderActivity extends AppCompatActivity {
             if (sentenceBuilder.length() > 0) {
                 TextView textView = new TextView(this);
                 textView.setText(sentenceBuilder.toString().trim());
+                textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
                 textView.setTextSize(textSize); // Terapkan ukuran teks
                 playButtonsContainer.addView(textView);
             }

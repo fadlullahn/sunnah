@@ -1,6 +1,7 @@
 package com.example.sunnah;
 
 import android.content.Intent;
+import android.graphics.text.LineBreaker;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -203,6 +204,7 @@ public class SunnahUbahActivity extends AppCompatActivity {
                     if (sentenceBuilder.length() > 0) {
                         TextView textView = new TextView(this);
                         textView.setText(sentenceBuilder.toString().trim());
+                        textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
                         textView.setTextSize(textSize); // Terapkan ukuran teks
                         playButtonsContainer.addView(textView);
                         sentenceBuilder.setLength(0); // Reset untuk kalimat berikutnya
@@ -223,6 +225,7 @@ public class SunnahUbahActivity extends AppCompatActivity {
             if (sentenceBuilder.length() > 0) {
                 TextView textView = new TextView(this);
                 textView.setText(sentenceBuilder.toString().trim());
+                textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
                 textView.setTextSize(textSize); // Terapkan ukuran teks
                 playButtonsContainer.addView(textView);
             }

@@ -47,27 +47,28 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:inputType="text"/>
+                android:layout_marginBottom="10dp"/>
 
             <ImageView
                 android:id="@+id/tv_gambar"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:src="@color/colorAccent" />
+                tools:src="@color/colorAccent"
+                />
 
             <LinearLayout
                 android:id="@+id/play_buttons_container"
